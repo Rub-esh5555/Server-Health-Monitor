@@ -2,6 +2,7 @@
 import streamlit as st
 import psutil
 import time
+import platform
 from datetime import datetime
 
 st.set_page_config(
@@ -23,7 +24,8 @@ refresh_time = st.sidebar.slider(
 
 cpu = psutil.cpu_percent(interval=1)
 memory = psutil.virtual_memory()
-disk = psutil.disk_usage("C:\\")
+disk_path = "C:\\" if platform.system() == "Windows" else "/"
+disk = psutil.disk_usage(disk_path)
 
 st.subheader("System Overview")
 st.caption("Last updated: " + datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
